@@ -4,7 +4,6 @@ import application.domain.Applications;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.annotation.ComponentScan;
 
 import javax.annotation.Resource;
 
@@ -15,7 +14,7 @@ import static org.junit.Assert.*;
 public class ApplicationOpsTest {
 
     @Resource
-    ApplicationOps applicationOps;
+    private ApplicationOps applicationOps;
 
     @Before
     public void setUp() throws Exception {
@@ -33,10 +32,12 @@ public class ApplicationOpsTest {
         String jobId = "test_id";
         Integer status = 1;
 
-
         int returnValue = applicationOps.insertApp(companyName, positionName, jobId, status);
-        System.out.println(returnValue);
+        assertEquals(returnValue, 1);
+    }
 
+    @Test
+    public void selectApp() throws Exception {
         List<Applications> outputList = applicationOps.selectByCompanyName("test_company_1");
         assertEquals("test_company_1", outputList.get(0).getCompanyName());
     }
